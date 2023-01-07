@@ -7,6 +7,7 @@ import { userAuthStateListener } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { createStackNavigator } from "@react-navigation/stack";
 import PickerScreen from "../../screens/picker";
+import childScreen from "../../screens/child";
 export default function MainNavigator() {
   const Stack = createStackNavigator();
   const currentUserObj = useSelector((state) => state.auth);
@@ -20,9 +21,7 @@ export default function MainNavigator() {
   const EmptyScreen = () => {
     return <View></View>;
   };
-  if (!currentUserObj.loaded) {
-    return <View></View>;
-  }
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -33,7 +32,7 @@ export default function MainNavigator() {
         />
         <Stack.Screen
           name="childHome"
-          component={EmptyScreen}
+          component={childScreen}
           options={{ headerShown: false }}
         />
         <Stack.Screen
@@ -41,7 +40,6 @@ export default function MainNavigator() {
           component={EmptyScreen}
           options={{ headerShown: false }}
         />
-        =
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -4,14 +4,32 @@ const { width, height } = Dimensions.get("window");
 const styles = StyleSheet.create({
   buttonsContainers: {
     flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 20,
   },
+
   buttonContainer: {
-    backgroundColor: "grey",
+    borderColor: "black",
+    borderWidth: 3,
+    borderRadius: 20,
+    margin: 30,
+    marginTop: 20,
+    padding: 10,
+    backgroundOpacity: 0.1,
+    backgroundColor: "white",
+    alignContent: "center",
+    justifyContent: "center",
+    flexDirection: "column",
   },
   headerText: {
     marginTop: height / 4,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "white",
+    borderRadius: 10,
+    borderColor: "black",
+    borderWidth: 2,
   },
 });
 

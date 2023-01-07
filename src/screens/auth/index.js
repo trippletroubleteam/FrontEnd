@@ -21,7 +21,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { Feather } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
-import { updateUserName } from "../../redux/actions/auth";
+import { updateUserName, setLoaded } from "../../redux/actions/auth";
 
 import { useNavigation } from "@react-navigation/native";
 import { login, register, createUser } from "../../redux/actions/auth";
@@ -113,6 +113,7 @@ export default function AuthScreen() {
       .catch((e) => {
         alert(e);
       });
+    navigation.navigate("PickerScreen");
   };
 
   const handleRegister = () => {
@@ -120,11 +121,14 @@ export default function AuthScreen() {
       .then(() => {
         console.log("register successful");
         createUser(name, emailAddress, password);
-        console.log(" FUCKKKKK " + currentUserObj.currentUser);
+        console.log(" FUCKKKKK " + JSON.stringify(currentUserObj));
+
+        setLoaded();
       })
       .catch((e) => {
         alert(e);
       });
+    navigation.navigate("PickerScreen");
   };
 
   return (

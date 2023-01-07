@@ -1,4 +1,3 @@
-null;
 import React, { useState } from "react";
 import {
   StyleSheet,
@@ -7,9 +6,10 @@ import {
   Dimensions,
   TextInput,
   TouchableOpacity,
+  Image,
 } from "react-native";
 import styles from "./styles";
-import Svg, { Image, Ellipse, ClipPath } from "react-native-svg";
+import Svg, { Ellipse, ClipPath } from "react-native-svg";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -23,35 +23,56 @@ import Animated, {
 import { Feather } from "@expo/vector-icons";
 import { useDispatch } from "react-redux";
 import { updateUserName } from "../../redux/actions/auth";
-
 import { useNavigation } from "@react-navigation/native";
-import { login, register, createUser } from "../../redux/actions/auth";
+import { setParentOrChild } from "../../redux/actions/auth";
 export default function PickerScreen() {
+  const navigation = useNavigation();
+  const bg_image =
+    "https://w0.peakpx.com/wallpaper/13/361/HD-wallpaper-watercolor-bright-colors-paint-splash-texture.jpg";
+
   return (
-    <View>
+    <View style={{ flex: 1 }}>
+      <Image style={StyleSheet.absoluteFillObject} source={{ uri: bg_image }} />
       <View style={styles.headerText}>
-        <Text style={{ fontSize: 30 }}>Are you a parent or a child?</Text>
+        <Text style={{ fontSize: 28, fontWeight: "500" }}>
+          Are You A Parent Or A Child?
+        </Text>
       </View>
 
       <View style={styles.buttonsContainers}>
-        <View style={buttonContainer}>
-          <TouchableOpacity>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity onPress={() => setParentOrChild("parent")}>
             <Feather
-              name="heart"
-              size={60}
+              name="sun"
+              size={80}
               color="black"
               style={{ marginTop: 9, marginHorizontal: 10 }}
             />
+            <Text
+              style={{ textAlign: "center", fontSize: 30, fontWeight: "700" }}
+            >
+              Parent
+            </Text>
           </TouchableOpacity>
         </View>
-        <View style={buttonContainer}>
-          <TouchableOpacity>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            onPress={() => {
+              setParentOrChild("child");
+              navigation.navigate("childHome");
+            }}
+          >
             <Feather
-              name="heart"
-              size={60}
+              name="sunrise"
+              size={80}
               color="black"
               style={{ marginTop: 9, marginHorizontal: 10 }}
             />
+            <Text
+              style={{ textAlign: "center", fontSize: 30, fontWeight: "700" }}
+            >
+              Child
+            </Text>
           </TouchableOpacity>
         </View>
       </View>

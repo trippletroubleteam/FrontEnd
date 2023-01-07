@@ -7,7 +7,7 @@ export const userAuthStateListener = () => (dispatch) => {
     if (user) {
       dispatch(getCurrentUserData);
     } else {
-      dispatch({ type: USER_STATE_CHANGE, currentUser: null, loaded: true });
+      dispatch({ type: USER_STATE_CHANGE, currentUser: false, loaded: true });
     }
   });
 };
@@ -29,25 +29,10 @@ export const createUser = (userName, email, password) => {
     });
   });
 };
-export const updateUserName = (name) => {
-  console.log(
-    "in update User name for name = " +
-      name +
-      " for user " +
-      firebase.auth().currentUser.uid
-  );
+
+export const setLoaded = () => {
   new Promise(async (resolve, reject) => {
-    firebase
-      .firestore()
-      .collection("users")
-      .doc(firebase.auth().currentUser.uid)
-      .update({
-        displayName: name,
-        name: name,
-      })
-      .catch((err) =>
-        reject(console.log("srt found error during user name " + err))
-      );
+    dispatch({ type: USER_STATE_CHANGE, currentUser: true, loaded: true });
   });
 };
 export const login = (email, password) => (dispatch) =>
@@ -58,8 +43,8 @@ export const login = (email, password) => (dispatch) =>
       .then(() => {
         resolve();
       })
-      .catch(() => {
-        reject();
+      .catch((e) => {
+        console.log(e);
       });
   });
 
@@ -91,4 +76,55 @@ export const getCurrentUserData = () => (dispatch) => {
         });
       }
     });
+};
+export const setParentOrChild = (type) => {
+  console.log(
+    "in update User name for name = " +
+      type +
+      " for user " +
+      firebase.auth().currentUser.uid
+  );
+  new Promise(async (resolve, reject) => {
+    firebase
+      .firestore()
+      .collection("users")
+      .doc(firebase.auth().currentUser.uid)
+      .update({
+        displayName: type,
+      })
+      .catch((err) =>
+        reject(console.log("srt found error during user name " + err))
+      );
+  });
+  /* if (type == "child") {
+    firebase
+      .firestore()
+      .collection("users")
+      .doc(firebase.auth().currentUser.uid)
+      .update({
+        emailVerified: true,
+      })
+      .catch((err) =>
+        reject(console.log("srt found error during user name " + err))
+      );
+  }
+  */
+};
+export const getMyUid = () => {
+  return firebase.auth().currentUser.uid + "PLEASEEEE";
+};
+
+export const getParent = () => {
+  firebase
+    .firestore()
+    .collection("users")
+    .doc(firebase.auth().currentUser.uid)
+    .get()
+    .then((snapshot) => {
+      return true;
+    })
+
+    .catch((err) =>
+      reject(console.log("srt found error getting whether has parent " + err))
+    );
 };
