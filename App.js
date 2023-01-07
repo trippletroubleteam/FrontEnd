@@ -26,6 +26,7 @@ if (firebase.apps.length === 0) {
 }
 const store = createStore(rootReducer, applyMiddleware(thunk));
 export default function App() {
+  /// qqqq
   return (
     <Provider store={store}>
       <Route />
