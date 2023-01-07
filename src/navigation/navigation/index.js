@@ -6,16 +6,14 @@ import { NavigationContainer } from "@react-navigation/native";
 import { userAuthStateListener } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { createStackNavigator } from "@react-navigation/stack";
-import MainNavigator from "../navigation";
 import PickerScreen from "../../screens/picker";
-export default function Route() {
+export default function MainNavigator() {
   const Stack = createStackNavigator();
   const currentUserObj = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(" FUCKKKKK " + currentUserObj.currentUser);
     dispatch(userAuthStateListener());
   }, []);
 
@@ -28,19 +26,22 @@ export default function Route() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {currentUserObj.currentUser == null ? (
-          <Stack.Screen
-            name="auth"
-            component={AuthScreen}
-            options={{ headerShown: false }}
-          />
-        ) : (
-          <Stack.Screen
-            name="Navigator"
-            component={MainNavigator}
-            options={{ headerShown: false }}
-          />
-        )}
+        <Stack.Screen
+          name="PickerScreen"
+          component={PickerScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="childHome"
+          component={EmptyScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="parentHome"
+          component={EmptyScreen}
+          options={{ headerShown: false }}
+        />
+        =
       </Stack.Navigator>
     </NavigationContainer>
   );
