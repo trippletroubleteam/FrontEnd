@@ -156,23 +156,25 @@ export default function AuthScreen() {
           >
             <View
               style={{
-                backgroundColor: "white",
-                opacity: 0.7,
+                backgroundColor: "rgb(17, 51, 46)",
+                opacity: 0.8,
                 flexDirection: "row",
                 justifyContent: "center",
                 borderRadius: 30,
+                borderWidth: 3,
+                borderColor: "grey",
               }}
             >
               <Feather
                 name="heart"
                 size={60}
-                color="black"
+                color="rgb(237, 229, 204)"
                 style={{ marginTop: 9, marginHorizontal: 10 }}
               />
               <Text
                 style={{
                   marginHorizontal: 10,
-                  color: "black",
+                  color: "white",
                   fontSize: 60,
                   fontStyle: "sans-serif",
                 }}
@@ -183,9 +185,22 @@ export default function AuthScreen() {
           </View>
         </Svg>
         <Animated.View
-          style={[styles.closeButtonContainer, closeButtonContainerStyle]}
+          style={[
+            styles.closeButtonContainer,
+            closeButtonContainerStyle,
+            {
+              borderTopColor: "rgb(237, 229, 204)",
+              borderRightColor: "rgb(237, 229, 204)",
+              borderLeftColor: "rgb(237, 229, 204)",
+            },
+          ]}
         >
-          <Text onPress={() => (imagePosition.value = 1)}>X</Text>
+          <Text
+            style={{ color: "rgb(237, 229, 204)" }}
+            onPress={() => (imagePosition.value = 1)}
+          >
+            X
+          </Text>
         </Animated.View>
       </Animated.View>
       <View style={styles.bottomContainer}>
@@ -202,21 +217,22 @@ export default function AuthScreen() {
         <Animated.View style={[styles.formInputContainer, formAnimatedStyle]}>
           <TextInput
             placeholder="Email"
-            placeholderTextColor="black"
+            placeholderTextColor="rgb(237, 229, 204)"
             style={styles.textInput}
             onChangeText={(text) => setEmailAddress(text)}
           />
           {isRegistering && (
             <TextInput
               placeholder="Full Name"
-              placeholderTextColor="black"
+              placeholderTextColor="rgb(237, 229, 204)"
               style={styles.textInput}
               onChangeText={(text) => setName(text)}
             />
           )}
           <TextInput
+            secureTextEntry={true}
             placeholder="Password"
-            placeholderTextColor="black"
+            placeholderTextColor="rgb(237, 229, 204)"
             style={styles.textInput}
             onChangeText={(text) => setPassword(text)}
           />

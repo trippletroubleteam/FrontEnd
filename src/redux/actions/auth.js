@@ -122,7 +122,7 @@ export const createChildArray = (existingChildren, childId, childName) => {
   existingChildren.push({
     id: childId,
     name: childName,
-    depressionPercent: "0%",
+    depressionPercent: "0",
     suggestion: "Your Child Has Not Taken a Survey Yet",
   });
   console.log(existingChildren + "EXISITNG IS AFTER");
@@ -270,5 +270,19 @@ export const updateUsersExpoToken = (token) => {
       .catch((err) =>
         reject(console.log("srt found error during user name " + err))
       );
+  });
+};
+
+export const setDepressionAndSuggestion = (depressionPercent, suggestion) => {
+  new Promise(async (resolve, reject) => {
+    firebase
+      .firestore()
+      .collection("users")
+      .where("child", "array-contains", firebase.auth().currentUser.uid)
+      .update({
+        depressionPercent,
+        suggestion,
+      })
+      .catch((err) => console.log("srt found error during user name " + err));
   });
 };

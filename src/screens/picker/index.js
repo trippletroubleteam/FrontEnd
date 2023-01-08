@@ -10,22 +10,24 @@ import {
 } from "react-native";
 import styles from "./styles";
 import Svg, { Ellipse, ClipPath } from "react-native-svg";
-import Animated, {
-  useSharedValue,
-  useAnimatedStyle,
-  interpolate,
-  withTiming,
-  withDelay,
-  runOnJS,
-  withSequence,
-  withSpring,
-} from "react-native-reanimated";
+
 import { Feather } from "@expo/vector-icons";
 import * as Device from "expo-device";
 import { useDispatch } from "react-redux";
 import { updateUserName } from "../../redux/actions/auth";
 import * as Notifications from "expo-notifications";
 import { useNavigation } from "@react-navigation/native";
+import Animated, {
+  SlideInDown,
+  SlidenInUp,
+  SlideInLeft,
+  SlideInRight,
+  LightSpeedOutLeft,
+  LightSpeedOutRight,
+  SlideOutUp,
+  SlideOutDown,
+  Transition,
+} from "react-native-reanimated";
 import {
   setParentOrChild,
   getUsersExpoToken,
@@ -81,54 +83,103 @@ export default function PickerScreen() {
     }
   }, []);
   return (
-    <View style={{ flex: 1 }}>
-      <Image style={StyleSheet.absoluteFillObject} source={{ uri: bg_image }} />
-      <View style={styles.headerText}>
-        <Text style={{ fontSize: 28, fontWeight: "500" }}>
-          Are You A Parent Or A Child?
-        </Text>
-      </View>
-
-      <View style={styles.buttonsContainers}>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            onPress={() => {
-              setParentOrChild("parent");
-              navigation.navigate("parentHome");
-            }}
+    <View
+      style={{ flex: 1, backgroundColor: "black", justifyContent: "center" }}
+    >
+      <View
+        style={{
+          flex: 0.9,
+          borderWidth: 1,
+          borderColor: "rgb(237, 229, 204)",
+          borderRadius: 40,
+          backgroundColor: "rgb(17, 51, 46)",
+        }}
+      >
+        <View
+          style={{
+            backgroundColor: "rgb(17, 51, 46)",
+            flex: 0.8,
+            margin: 20,
+            borderRadius: 40,
+          }}
+        >
+          <Animated.View
+            delay={500}
+            entering={SlidenInUp}
+            exiting={SlideOutDown}
+            style={styles.headerText}
           >
-            <Feather
-              name="sun"
-              size={80}
-              color="black"
-              style={{ marginTop: 9, marginHorizontal: 10 }}
-            />
             <Text
-              style={{ textAlign: "center", fontSize: 30, fontWeight: "700" }}
+              style={{
+                color: "rgb(237, 229, 204)",
+                fontSize: 28,
+                fontWeight: "500",
+                textAlign: "center",
+              }}
             >
-              Parent
+              Are You A Parent Or A Child?
             </Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            onPress={() => {
-              setParentOrChild("child");
-              navigation.navigate("childHome");
-            }}
-          >
-            <Feather
-              name="sunrise"
-              size={80}
-              color="black"
-              style={{ marginTop: 9, marginHorizontal: 10 }}
-            />
-            <Text
-              style={{ textAlign: "center", fontSize: 30, fontWeight: "700" }}
+          </Animated.View>
+          <View style={styles.buttonsContainers}>
+            <Animated.View
+              entering={SlideInLeft}
+              exiting={LightSpeedOutLeft}
+              style={styles.buttonContainer}
             >
-              Child
-            </Text>
-          </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  setParentOrChild("parent");
+                  navigation.navigate("parentHome");
+                }}
+              >
+                <Feather
+                  name="sun"
+                  size={80}
+                  color="rgb(237, 229, 204)"
+                  style={{ marginTop: 9, marginHorizontal: 10 }}
+                />
+                <Text
+                  style={{
+                    textAlign: "center",
+                    fontSize: 30,
+                    fontWeight: "700",
+                    color: "rgb(237, 229, 204)",
+                  }}
+                >
+                  Parent
+                </Text>
+              </TouchableOpacity>
+            </Animated.View>
+            <Animated.View
+              style={styles.buttonContainer}
+              entering={SlideInRight}
+              exiting={LightSpeedOutRight}
+            >
+              <TouchableOpacity
+                onPress={() => {
+                  setParentOrChild("child");
+                  navigation.navigate("childHome");
+                }}
+              >
+                <Feather
+                  name="sunrise"
+                  size={80}
+                  color="rgb(237, 229, 204)"
+                  style={{ marginTop: 9, marginHorizontal: 10 }}
+                />
+                <Text
+                  style={{
+                    textAlign: "center",
+                    fontSize: 30,
+                    fontWeight: "700",
+                    color: "rgb(237, 229, 204)",
+                  }}
+                >
+                  Child
+                </Text>
+              </TouchableOpacity>
+            </Animated.View>
+          </View>
         </View>
       </View>
     </View>

@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import styles from "./styles";
 import SmileDisplay from "../../components/smileyFaceDisplay";
+import * as Progress from "react-native-progress";
 import Svg, { Ellipse, ClipPath } from "react-native-svg";
 import * as Clipboard from "expo-clipboard";
 import Animated, {
@@ -66,7 +67,7 @@ export default function ParentScreen() {
   );
   const renderItem = ({ item }) => <Item item={item} />;
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, backgroundColor: "black" }}>
       <Image style={StyleSheet.absoluteFillObject} source={{ uri: bg_image }} />
       <View style={{ flex: 0.8 }}>
         <FlatList
@@ -89,15 +90,25 @@ export default function ParentScreen() {
                         color: "white",
                       }}
                     >
-                      {item[1]}
+                      {console.log(item)}
+                      {item.name}
                     </Text>
                     <Text style={styles.subHeader}></Text>
-                    <Text style={styles.dubHeader}>{item[3]}</Text>
+                    <Text style={styles.dubHeader}>{item.suggestion}</Text>
                     <View
                       style={{ flexDirection: "row", justifyContent: "center" }}
                     >
+                      <Text> </Text>
                       <Text style={styles.dubHeader}>Mood Rating : </Text>
                       <Text style={styles.dubHeader}>{item[2]}</Text>
+                      <Progress.Bar
+                        progress={item[0]}
+                        width={200}
+                        height={20}
+                        unfilledColor={"#90EE90"}
+                        borderColor={"#000000"}
+                        color={"#a83232"}
+                      />
                     </View>
                   </TouchableOpacity>
                 </View>
