@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { View, Text } from "react-native";
 import AuthScreen from "../../screens/auth";
 import { NavigationContainer } from "@react-navigation/native";
-
+import ParentScreen from "../../screens/parent";
 import { userAuthStateListener } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -16,16 +16,14 @@ export default function Route() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(" FUCKKKKK " + JSON.stringify(currentUserObj));
+    console.log(" HEE:{{}} " + JSON.stringify(currentUserObj));
     dispatch(userAuthStateListener());
   }, []);
 
   const EmptyScreen = () => {
     return <View></View>;
   };
-  if (!currentUserObj.loaded) {
-    return <View></View>;
-  }
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -47,7 +45,7 @@ export default function Route() {
         />
         <Stack.Screen
           name="parentHome"
-          component={EmptyScreen}
+          component={ParentScreen}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

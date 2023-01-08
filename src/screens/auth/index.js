@@ -120,8 +120,7 @@ export default function AuthScreen() {
     dispatch(register(emailAddress, password))
       .then(() => {
         console.log("register successful");
-        createUser(name, emailAddress, password);
-        console.log(" FUCKKKKK " + JSON.stringify(currentUserObj));
+        console.log(" SRTTTTT " + JSON.stringify(currentUserObj));
 
         setLoaded();
       })

@@ -14,10 +14,6 @@ export default function MainNavigator() {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(userAuthStateListener());
-  }, []);
-
   const EmptyScreen = () => {
     return <View></View>;
   };
