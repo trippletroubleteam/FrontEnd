@@ -99,22 +99,21 @@ export const setParentOrChild = (type) => {
         reject(console.log("srt found error during user name " + err))
       );
   });
-  /* if (type == "child") {
+  if (type == "parent") {
     firebase
       .firestore()
       .collection("users")
       .doc(firebase.auth().currentUser.uid)
       .update({
-        emailVerified: true,
+        child: [],
       })
       .catch((err) =>
         reject(console.log("srt found error during user name " + err))
       );
   }
-  */
 };
 export const getMyUid = () => {
-  return firebase.auth().currentUser.uid + "PLEASEEEE";
+  return firebase.auth().currentUser.uid;
 };
 
 export const createChildArray = (existingChildren, childId, childName) => {

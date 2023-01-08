@@ -40,8 +40,11 @@ export default function ParentScreen() {
   const dispatch = useDispatch();
   useEffect(() => {
     getMyChildren().then(function (result) {
-      setChildrenArray(result);
-      console.log(childrenArray + " QQQQQQQQQQQQ");
+      if (result) {
+        setChildrenArray(result);
+      }
+
+      console.log(childrenArray + "   qqqQQQQQQQQQQQQ");
     });
   }, []);
 
